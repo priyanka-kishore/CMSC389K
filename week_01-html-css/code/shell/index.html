@@ -3,10 +3,60 @@
     <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
         <style>
-            
+            /* h1 {
+                color: green;
+            } */
+
+            #greenh1 {
+                color: green;
+                font-size: 120px; /* overrides default size */
+            }
+
+            .pinkpls {
+                color: pink;
+            }
+
+            li {
+                display: inline; /* will be all in 1 line */
+                padding: 0px 10px 0px 10px; /* top right bottom left */
+            }
+
+            /* MEDIA QUERIES: adapt layout to screen size */
+            @media (max-width:500px) {
+                #greenh1 { /* when width is less than 500px, change size of green heading */
+                    font-size: 24px;
+                }
+            }
+
+
         </style>
     </head>
     <body>
-        
+        <!-- bullet points-->
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">Contact</a></li>
+        </ul>
+        <!-- numbered list -->
+        <ol>
+            <li>one</li>
+            <li>two</li>
+            <li>three</li>
+        </ol>
+        <h1 id="greenh1">Header Size 1</h1>
+        <h1>Another Header</h1>
+        <p class="pinkpls">paragraph one.</p>
+        <h6 class="pinkpls">paragraph two.</h6>
+        <a href="">Link</a>
+        <img src="https://www.umd.edu/sites/umd.edu/files/UMD_Logo-white.png" alt="UMD_Logo-white">
+
+        <form>
+            <input type="text" name="firstname">
+            <button type="submit" value="button">Click me</button>
+        </form>
+
+
+
     </body>
 </html>
