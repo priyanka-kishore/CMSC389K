@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Week 2 In-class WS</h1>
+    <script>
+        // #1
+        var usernames = ["Cammie", "Chidi", "Benny", "Chirag"];
+        var passwords = ["$56#hdj", "$56#asd", "$56#mqw", "$56sla"];
+
+        function unique() {
+
+        }
+        unique();
+
+        // #2
+        var animals = {
+            "rat": 0,
+            "hamster": 100,
+            "cat": 200,
+            "dog": 300,
+            "rabbit": 400,
+            "lizard": 500,
+            "goldfish": 600,
+            "fly": 700
+        };
+
+        function sumAnimals(object) {
+            let sum = 0;
+            
+            for (let i in object) {
+                if (i.length == 3) {
+                    sum += object[i];
+                } else {
+                    sum -= object[i];
+                }
+            }
+
+            return sum;
+        }
+
+        console.log(sumAnimals(animals));
+    
+    </script>
+    
+</body>
+</html>

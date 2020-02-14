@@ -8,14 +8,91 @@
 	<h1>Hello World</h1> 	
 
 	<script>
+		// can print to console
+		console.log("hey"); 
+
+		// declaring variables
+		let x = 3; // BLOCK SCOPE
+		var y = "hello"; // FUNCTION SCOPE
 		
+		/*	if () {
+				let x = 3; // can see x only in this block
+				var y = 4; // can see y outside this block
+			}
+		*/
 
 		// Arrays
+		let names = ['Robert', 'Camille', 'Dickerson'];
 
 		// For Loops
+		for (let i = 0; i < names.length; i++) {
+			console.log(names[i]); // auto new line
+		}
+
+		for (let i in names) {
+			console.log(names[i]);
+		}
+
+		for (let name of names) {
+			console.log(name);
+		}
 
 		// First class Functions
+			// treated like any other vars
+			// don't need to specify arg type + return type
 
+		function printHello() {
+			console.log("hello");
+		}
+		printHello();
+
+		function add(x, y) {
+			return x + y;
+		}
+		console.log(add(3, 5));
+
+		function reverseStr(str) {
+			return str.split('').reverse();
+		}
+		console.log(reverseStr("Priyanka"));
+
+		function applyTo(func) { // function as param
+			return func(3, 2);
+		}
+		console.log(applyTo(add));
+
+		// Anonymous Functions
+		let funcs = [	function() { console.log("hi") }, 
+						function() {console.log("bye") } ];
+
+		for (let f of funcs) {
+			f();
+		}
+
+		// Objects
+			// can create objects via key/value pair pattern
+			// can nest objects within objects
+		let priyanka = {
+			age: 19,
+			//occupation: "student",
+			occupation: { // assign object
+				nameOfOccupation: "student",
+				salary: -13000
+			},
+			sayHello: function() {
+				console.log("Priyanka says Hello!") 
+			},
+			saySomething: function(msg) {
+				console.log(msg);
+			}
+		}
+		console.log(priyanka.saySomething("what"));
+
+		priyanka.run = function() { // create new method on object
+			console.log("i hate running");
+		}
+		priyanka.run();
+		console.log(priyanka.occupation);
 	</script>
 
 </body>
