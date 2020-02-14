@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <header>
+        <img src="https://www.biography.com/.image/ar_8:10%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_620/MTU3NTY2MjUwMTM2OTA1NjEx/chuck-close-attends-the-first-taping-of-the-late-show-with-stephen-colbert-on-september-8-2015-in-new-york-city-photo-by-michael-loccisanogetty-images-square.jpg" width="150px">
+        <h1>Chuck Norris</h1>
+        <ul>
+            <li>
+                <a href="http://google.com">Home</a></li>
+            <li>
+                <a href="http://facebook.com">About</a>
+            </li>
+            <li>
+                <a href="#">Other</a>
+            </li>
+        </ul>
+    </header>
+    <article>
+        <h3>Search Category:</h3>
+        <input type="text" placeholder="Ex: Animal" id="category_field">
+        <button id="search_button">Search! </button>
+        <button id="clear_results"> Clear Results </button>
+        <div id="results_container"></div>
+    </article>
+    <!-- imports jquery library into our code-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+    <script>
+        // STEP 1: capture the element to interact with
+        // STEP 2: add an event listener
+        // STEP 3: write code to handle event
+
+        // $("#search_button").on("click", function() {
+        //     alert("Search button was clicked!");
+        // })
+
+        $("#search_button").on("click", function() {
+            var input = $("#category_field").val();
+
+            // add input to results_container
+                //$("#results_container").append("<h3>" + input + "</h3>")
+
+            // making GET requests to server API
+            $.get("https://api.umd.io/v0/courses/" + input, function(data) {
+                // $("#results_container").append("<h3>" + input + "</h3>")
+                // $("#results_container").append("<p>" + data.description + "</p>")
+
+                $("#results_container").append(`<h3>${input}</h3>`)
+                $("#results_container").append(`<p>${data.description}</p>`)
+            })
+        })
+
+        $("#clear_results").on("click", function() {
+            $("#category_field").val('');
+            $("#results_container").empty();
+        })
+        
+    </script>
+</body>
+
+</html>
