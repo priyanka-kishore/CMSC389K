@@ -12,10 +12,23 @@
         /* Do not worry about doing extensive styling. Please make sure it is
            obvious where the input bar, start button, running list of states,
            and timer all are. */
+           * {
+               font-family: sans-serif;
+           }
     </style>
 </head>
 
 <body>
+
+    <h1>50 States Game</h1>
+    <h3>Enter as many states as you can within the time limit!
+        <br>Start when you're ready.</h3>
+
+    <!--
+    4. Implement the start button. The start button must activate the input box
+    to allow input start the timer.
+    -->
+    <button id="start_button" style="font-size: 25px; color: rgb(80, 255, 80); background-color: rgb(42, 105, 34)">Ready</button>
 
     <!--
     1. Implement the input element.
@@ -25,6 +38,18 @@
         the user hitting enter?
         3. How do I disable the input bar if the game is not in session?
     -->
+
+    <div id="input_div">
+        <p>Enter state:</p>
+        <input type="text" id="stateEntry" placeholder="US State" disabled="true"> 
+    </div>
+
+    <!--
+    3. Implement the timer. This is almost all JavaScript.
+    -->
+    <div id="timer_div">
+        <h2 id="timer" style="color: red"></h2>
+    </div>
 
     <!--
     2. Implement the running list of states.
@@ -36,15 +61,13 @@
         4. How will I seperate the entered states from missed states when the
         game is over if the user lost the game?
     -->
+    <div id="list_div">
+        <h2>Correct States:</h2>
+    </div>
 
-    <!--
-    3. Implement the timer. This is almost all JavaScript.
-    -->
 
-    <!--
-    4. Implement the start button. The start button must activate the input box
-    to allow input start the timer.
-    -->
+    
+
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
     <script src="index.js" type="text/javascript"></script>

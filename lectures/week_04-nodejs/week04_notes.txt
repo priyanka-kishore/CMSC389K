@@ -1,0 +1,9 @@
+Event Driver = flow of program is determined by events, like user action
+
+Non-blocking IO = 
+
+NPM = node package manager; contains JS files that you can use in aplication
+    - written by community
+    - faster development
+
+== FILE READING/WRITING ==
