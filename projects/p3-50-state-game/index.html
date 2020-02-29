@@ -30,43 +30,28 @@
     -->
     <button id="start_button" style="font-size: 25px; color: rgb(80, 255, 80); background-color: rgb(42, 105, 34)">Ready</button>
 
-    <!--
-    1. Implement the input element.
-        You'll need to answer the the following questions (and probably more):
-        1. What HTML tag inserts an input element?
-        2. How do I continuously check the contents of the input element without
-        the user hitting enter?
-        3. How do I disable the input bar if the game is not in session?
-    -->
+    <!-- 1. Implement the input element. -->
 
     <div id="input_div">
         <p>Enter state:</p>
         <input type="text" id="stateEntry" placeholder="US State" disabled="true"> 
     </div>
 
-    <!--
-    3. Implement the timer. This is almost all JavaScript.
-    -->
+    <!-- 3. Implement the timer. This is almost all JavaScript. -->
     <div id="timer_div">
         <h2 id="timer" style="color: red"></h2>
     </div>
 
-    <!--
-    2. Implement the running list of states.
-        1. What HTML will be inserted each time a user enters a correct state?
-        2. How can I make sure the user can see all the states he/she has
-        already entered?
-        3. How will I trigger the network request to get the number of Spanish
-        speakers in a state (on hover)?
-        4. How will I seperate the entered states from missed states when the
-        game is over if the user lost the game?
-    -->
+    <!-- 2. Implement the running list of states.
+        How will I trigger the network request to get the number of Spanish
+        speakers in a state (on hover)? -->
+
+    <h2 id="spanish" style="color:blue; display:inline"></h2>
+
     <div id="list_div">
-        <h2>Correct States:</h2>
+        <h2 id="Correct">Correct States:</h2>
+        <!-- <p class="stateList">Maryland</p> -->
     </div>
-
-
-    
 
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>

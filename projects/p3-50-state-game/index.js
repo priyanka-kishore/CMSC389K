@@ -4,7 +4,19 @@
 // This will make it easier to test.
 
 var states = ["Idaho", "South Dakota", "Hawaii", "Alaska", "Alabama", "New York"];
-// var states = ["Maryland"];
+// var states = [
+//     "Alabama", "Alaska", "Arizona", "Arkansas", "California",
+//     "Colorado", "Connecticut", "Delaware", "District Of Columbia", "Florida",
+//     "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
+//     "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
+//     "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+//     "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+//     "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota",
+//     "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
+//     "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
+//     "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin",
+//     "Wyoming"
+// ]
 
 // These are all the states. It maps the state name to the number which you'll
 // want to use in your API call.
@@ -62,40 +74,52 @@ var abvMap = {
     "Wyoming": "56",
 }
 
-
-/*
- * The majority of this project is done in JavaScript.
- *
- * 1. Start the timer when the click button is hit. Also, you must worry about
- *    how it will decrement (hint: setInterval).
- * 2. Check the input text with the group of states that has not already been
- *    entered. Note that this should only work if the game is currently in
- * 3. Realize when the user has entered all of the states, and let him/her know
- *    that he/she has won (also must handle the lose scenario). The timer must
- *    be stopped as well.
- *
- * There may be other tasks that must be completed, and everyone's implementation
- * will be different. Make sure you Google! We urge you to post in Piazza if
- * you are stuck.
- */
-
 var original_length = states.length;
 
-// go through entire states list and make all lowercase
-// for (var i = 0; i < states.length; i++) {
-//     states[i].toLowerCase();
-// }
-
- // start timer when button is pressed
+ /* START TIME WHEN BUTTON PRESSED */
 $('#start_button').on("click", function() {
-    var fiveMinutes = 60 * 5, twentySeconds = 20, test = 5
+    var fiveMinutes = 60 * 5, twentySeconds = 20;
     var displayTag = $('#timer'); // grab tag to change
 
     $('#stateEntry').attr('disabled', false); // change disabled to true
     startTime(twentySeconds, displayTag);
 });
 
- // TIMER
+
+/* GET CURRENT INPUT ON EVERY KEYUP EVENT */
+$('#stateEntry').on("keyup", function() { 
+    var input = $('#stateEntry').val();
+    updateList(input);
+});
+
+
+/* HOVER OVER STATE AND GET NUMBER OF SPANISH-SPEAKERS */
+$(document).on("mouseover", ".stateList", function() {
+    var stateNum = abvMap[$(this).html()]; // get num of state that is being hovered over
+
+    // call api for value
+    $.get(`https://api.census.gov/data/2013/language?get=EST,LANLABEL,NAME&for=state:${stateNum}&LAN=625`, function(data) {
+        var value = data[1][0]; // number of spanish speakers in JSON object
+        
+        // append value
+        $('#spanish').empty();
+        $('#spanish').append(`No. of Spanish-speakers: ${numberWithCommas(value)}`)
+    });
+})
+
+// $(document).on("mouseleave", ".stateList", function() {
+//         $('#spanish').empty();
+//         $('#spanish').append(`No. of Spanish-speakers: ${numberWithCommas(value)}`)
+// })
+
+
+/* RETURNS NUMBER STRING WITH COMMA SEPARATORS */
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+ /* TIMER */
 var interval;
 function startTime(duration, display) {
     var timer = duration, minutes, seconds;
@@ -116,7 +140,8 @@ function startTime(duration, display) {
     }, 1000); // refresh every 1000ms = 1s
 }
 
-// makes input case insensitive
+
+/* makes input case insensitive and returns state if correct */
 function includesCase(input) {
     for (var i = 0; i < states.length; i++) {
         var curr_state = states[i].toLowerCase();
@@ -127,37 +152,34 @@ function includesCase(input) {
     return null;
 }
 
-// CHECK INPUT FROM BOX TO SEE IF MATCHES A STATE
+/* CHECK INPUT AND ADD TO LIST IF CORRECT*/
 function updateList(input) {
     // if state matches
     var lowerCase = input.toLowerCase();
     var theState = includesCase(lowerCase);
 
-    if (theState != null && states.length > 0) {
-        $('#list_div').append(`<p>${theState}</p>`); // move this to updateList()
-        $('#stateEntry').val('');
+    if (theState != null && states.length > 0) { // if state exists and got it correct
+        $('#list_div').append(`<p class="stateList">${theState}</p>`); // add to correct states list
         
-        for (var i = 0; i < states.length; i++) { // removes found element from STATES array
+
+        $('#stateEntry').val(''); // empty input
+        
+        for (var i = 0; i < states.length; i++) { 
             var curr_state = states[i].toLowerCase();
             if (curr_state == lowerCase) {
-                states.splice(i, 1);
+                states.splice(i, 1); // removes found element from STATES array
             }
         }
     }
 
-    if (states.length <= 0) {
+    if (states.length <= 0) { // got all states before timer ends
         displayWinner();
-        clearInterval(interval);
+        clearInterval(interval); // stop timer
     }
 }
 
-$('#stateEntry').on("keyup", function() { // get current input on every key press
-    var input = $('#stateEntry').val();
 
-    updateList(input); // TODO: make it non case sensitive!
-});
-
- // IF TIMES UP: SHOW GAME OVER
+ /* IF TIMES UP: SHOW GAME OVER + STATS */
 function displayGameOver() {
     $('#timer').text("GAME OVER"); // replace timer with GAME OVER    
     $('#stateEntry').attr('disabled', true); // disable input field
@@ -166,11 +188,11 @@ function displayGameOver() {
     // display which states the user did not get separately
     $('#list_div').append("<h2>Incorrect States:<h2>");
     for (var i = 0; i < states.length; i++) {
-        $('#list_div').append(`<p>${states[i]}<p>`); 
+        $('#list_div').append(`<p class="stateList">${states[i]}<p>`); 
     }
 }
 
- // IF FINISHED BEFORE TIMES UP: SHOW WINNER
+ /* IF FINISHED BEFORE TIMES UP: SHOW WINNER */
  function displayWinner() {
     $('#timer').text("YOU WIN!").attr("style", "color:green; font-size: 40px");
     $('#stateEntry').attr('disabled', true); // disable input field
