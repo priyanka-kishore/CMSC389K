@@ -10,7 +10,8 @@ Date: April 2nd, 2017
 Project Topic: Local Dogs for Adoption
 
 URL: http://103.283.293.13:3000/
- ---
+
+---
 
 ### 1. Data Format and Storage
 

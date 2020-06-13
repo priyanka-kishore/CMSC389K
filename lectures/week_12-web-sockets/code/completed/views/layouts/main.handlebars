@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Chat</title>
-    <link rel="stylesheet" type="text/css" href="/public/css/main.css">
+     <link rel="stylesheet" type="text/css" href="/public/css/main.css"> 
 </head>
 <body>
     {{{body}}}
     <script src="/socket.io/socket.io.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 	<script>
-        /*
-            Allow client to use socket.io 
+        /*  --EVEN THO CLIENT CONNECTS TO SERVER, WE NEED CLIENT TO OPEN UP THEIR END OF WEB SOCKET --
+            Allow client to use socket.io
                 1. Include socket.io javascript library
                 2. Have client open it's end of the web socket -> var socket = io()
 
-            Now client can listen to messages from server 
+            Now client can listen to messages from server
                 -> socket.on(message, function(msg)){...}
-                
+
             And emit message to server via web sockets
                 -> socket.emit(message, contentOfMessage){...}
         */
+
         //============OPEN UP SOCKET CONNECTION HERE=============
-        var socket = io(); 
+        var socket = io(); // it knows io() is func bc we use socket.io's provided JS file (script src up top)
         //=======================================================
 
         /*
-            TASK 1 (CLIENT END): Handle new chat message from client 
+            TASK 1 (CLIENT END): Handle new chat message from client
             Steps to complete task from client end:
                 1. Send/emit a message to server when a new chat message is submitted
                 2. Listen for message from server when some client created a new chat message
@@ -34,14 +35,19 @@
         */
 
         //Task 1 - Step 1: Send/emit a message to server when a new chat message is submitted
-        $('#box').submit(function(){ //When send button is pressed
-            socket.emit('chat message', $('#m').val())
-            $('#m').val('');
-            return false; //Ensures the page does not reload
+        $('#box').submit(function() { // When send button is pressed, uses jQuery
+            /* do socket stuff */
+            socket.emit('chat message', $('#m').val()) // send message through socket to server
+            // using jQuery to capture page element with id #m and its value to send
+
+            $('#m').val(''); // reset input bar to be empty string
+            return false; // Ensures the page does not reload or change or anything
+            // why don't we want it to reload? bc this is a chat service, so it should be live and fast
         });
+
         //Task 1 - Step 2: Listen for message from server when some client created a new chat message and update HTML page
-        socket.on('chat message', function(msg) {
-            $('#messages').append($('<li>').text(msg));
+        socket.on('chat message', function(msg) { // clients' handler for what happens when receive chat msg
+            $('#messages').append($('<li>').text(msg)); // get new msg from socket + append to list of msgs
         });
 
         /*
@@ -80,4 +86,3 @@
 	</script>
 </body>
 </html>
-

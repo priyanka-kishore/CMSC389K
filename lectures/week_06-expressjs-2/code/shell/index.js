@@ -11,7 +11,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.get('/', function(req, res) {
-	res.send('Hello World!');
+    // res.send('Hello World!');
+    res.sendFile('./public/index.html', {root : __dirname});
 });
 
 app.get('/factorial', function(req, res) {

@@ -13,7 +13,7 @@ var PORT = 8000;
 
 var _DATA = dataUtil.loadData().blog_posts;
 
-/// MIDDLEWARE 
+/// MIDDLEWARE
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -36,7 +36,9 @@ app.get("/create", function(req, res) {
 app.post('/create', function(req, res) {
     var body = req.body;
 
-    // Transform tags and content 
+    console.log(body)
+
+    // Transform tags and content
     body.tags = body.tags.split(" ");
     body.content = marked(body.content);
 
@@ -44,12 +46,16 @@ app.post('/create', function(req, res) {
     body.preview = body.content.substring(0, 300);
     body.time = moment().format('MMMM Do YYYY, h:mm a');
 
+    console.log(body)
+    console.log(req.body)
+
     // Save new blog post
     _DATA.push(req.body);
     dataUtil.saveData(_DATA);
     res.redirect("/");
 });
 
+// slugs id a specific post and give tags attached
 app.get('/post/:slug', function(req, res) {
     var _slug = req.params.slug;
     var blog_post = _.findWhere(_DATA, { slug: _slug });
@@ -57,6 +63,7 @@ app.get('/post/:slug', function(req, res) {
     res.render('post', blog_post);
 });
 
+//tags group all posts with same tag, and display them
 app.get('/tag/:tag', function(req, res) {
     var tags = dataUtil.getAllTags(_DATA);
     var tag = req.params.tag;

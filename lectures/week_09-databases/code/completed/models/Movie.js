@@ -1,7 +1,8 @@
+// the following two lines allow us to install/use the Mongoose node packacge
 var mongoose = require('mongoose'); 
 mongoose.Promise = global.Promise
 
-// In Java, this class would have looked something like the following.
+// In Java, this class would have looked something like the following:
 
 // public Movie {
 //     private String title;
@@ -13,14 +14,15 @@ mongoose.Promise = global.Promise
 // }
 
 
-//First we must define a schema
+// First we must define a schema (describes the "object")
 
+// the following uses mongoose's schema constructor to define what attributes make up a review
 var reviewSchema = new mongoose.Schema({
-    rating:{
+    rating: {
         type: Number,
         min: 0.0,
         max: 5.0,
-        required: true
+        required: true // causes this attribute to be required for a schema
     },
     comment: {
         type: String
@@ -32,7 +34,7 @@ var reviewSchema = new mongoose.Schema({
 }); 
 
 
-//Let's define a second schema 
+// Let's define a second schema 
 
 var movieSchema = new mongoose.Schema({
     title:{
@@ -47,8 +49,14 @@ var movieSchema = new mongoose.Schema({
         type: String,
         required: true 
     },
-    reviews:[reviewSchema]
+    reviews:[reviewSchema] // an array of the reviewSchema
 });
 
+// allows for use of these schemas outside this file (specifically index.js)
 var Movie = mongoose.model('Movie', movieSchema);
-module.exports = Movie; 
+// var Review = mongoose.model('Review', reviewSchema); // i added this
+module.exports = Movie;
+// module.exports = { // i added this, i think it works like this
+//     Movie: Movie,
+//     Review: Review
+// }

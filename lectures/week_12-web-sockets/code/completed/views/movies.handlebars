@@ -1,11 +1,41 @@
 <form id="movies">
-<input name="title" id="title" type="text" placeholder="Beauty and a Beast"/>
-<input name="genre" id="genre" type="text" placeholder="Family"/>
-<button>POST</button>
+  <input name="title" id="title" type="text" placeholder="Beauty and a Beast"/>
+  <input name="genre" id="genre" type="text" placeholder="Family"/>
+  <button>POST</button>
 </form>
+
 <br>
+
 <ul id="movList">
-{{#each movies}}
-<li>{{this.title}}: {{this.genre}}</li>
+  {{#each movies}}
+  <li>{{this.title}}: {{this.genre}}</li>
 {{/each}}
 </ul>
+
+<script>
+    // code to update movies to server
+    console.log('will update movie to server')
+    $('#movies').submit(function() { // when client clicks submit button...
+        var genre = $('#genre').val(); // grab genre of movie
+        var title = $('#title').val(); // grab title of movie
+
+        // send POST request using ajax (we don't have Express loaded in here)
+        $.ajax({
+            type: "POST",
+            url: "/movies",
+            data: {
+                title: title,
+                genre: genre
+            },
+            success: function(data, status) {
+                console.log(data);
+            }
+        });
+        return false; // does not refresh page
+    });
+
+    // code to update movies submitted by other clients
+    socket.on('new movie', function(mov) {
+        $('#movList').append($('<li>').text(mov.title + ": " + mov.genre));
+    })
+</script>

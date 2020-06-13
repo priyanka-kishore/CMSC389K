@@ -1,1 +1,23 @@
-Home
+{{!-- if we show tag is TRUE, display stuff for that specific tag --}}
+{{!-- this happens for hit on `/api/tag/:tag` bc tag passed into res.render--}}
+{{#if filter}}
+    <h2 style="color:white">{{filter}}</h2>
+{{!-- else display stuff on the home page --}}
+{{!-- this happens for `/` because `tag` not passed into res.render--}}
+{{else}}
+    <h2 style="color:white">All Restaurant Reviews</h2>
+{{/if}}
+
+
+{{#each data}}
+<article>
+    <hr>
+    <h2 class="title">{{this.name}}</h2>
+    <div class="content">
+        <h3>Rating: {{this.rating}}</h3>
+        <h3>Price point: {{this.price}}</h3>
+        <p>Review: {{this.new_review}}</p>
+    </div>
+    <a href="/restaurant/{{this.name}}">View "{{this.name}}" ratings!</a> <!-- pass specific restaurant to rest. handlebars -->
+</article>
+{{/each}}

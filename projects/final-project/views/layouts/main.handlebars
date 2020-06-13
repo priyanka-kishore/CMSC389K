@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Final Project</title>
+     <!-- <link rel="stylesheet" type="text/css" href="/public/css/main.css">  -->
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.5/lib/darkmode-js.min.js"></script>
+    <script> new Darkmode().showWidget();</script> 
+
+    {{!-- top section --}}
+    <h1>CollabList</h1>
+    <h3>this will be the nav bar</h3>
+    <h4>Dashboard | My Lists | Create | About CollabList/h4>
+    <h4>pages not in nav: [Show list] (when clicked on) | [Email list] </h4>
+
+    {{!-- body stuff --}}
+    {{{body}}}
+
+    {{!-- socket stuff (live updates) --}}  
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script>
+        var socket = io(); // open socket connection
+
+        // HANDLE NEW COMPONENT MESSAGE FROM CLIENT
+        // CLIENT END INPUT + SOCKET STUFF
+
+        // (1) send message TO server when new component (categ, list, item) is submitted
+        $('#create').submit(function() {
+            socket.emit('new component', $('#categoryName').val()); 
+
+            $('#categoryName').val('');
+            return false;
+        })
+
+        // (2) listen for message FROM server
+        socket.on('new component', function(value) { // msg = value of input box
+            $('#listView').append($('<li>').text("value)); // appends to listView list
+        });
+
+    </script>
+</body>
+</html>

@@ -63,6 +63,9 @@ Each specificiation has two types of requirements:
 5. **NPM Packages**
 
     - (15 pt) Use 2 new npm packages that we have not used before
+        - html-to-text: https://www.npmjs.com/package/html-to-text
+        - nodeemailer: https://nodemailer.com/about/, https://www.w3schools.com/nodejs/nodejs_email.asp
+        - darkmode: https://www.npmjs.com/package/darkmode-js
 
 6. **User Interface**
 

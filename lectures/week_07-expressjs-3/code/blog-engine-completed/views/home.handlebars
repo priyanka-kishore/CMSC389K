@@ -1,9 +1,10 @@
 {{#if tag}}
-<h2>Recent Posts in {{tag}}:</h2> 
+<h2>Recent Posts in {{tag}}:</h2>
 {{else}}
-<h2>Recent Posts:</h2> 
+<h2>Recent Posts:</h2>
 {{/if}}
 
+<!-- if data.json is not empty -->
 {{#each data}}
 <article>
 	<h2 class="title">{{this.title}}</h2> <i>{{time}}</i>
@@ -14,7 +15,7 @@
 	<a href="/post/{{this.slug}}">Read more...</a>
 </article>
 {{else}}
-
+<!-- else if data.json is empty -->
 <article>
     <h1>There are no blog posts yet. :(</h1>
     <a href="/create">Write your first post!</a>

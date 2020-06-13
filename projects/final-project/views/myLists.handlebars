@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Lists</title>
+</head>
+<body>
+
+    <h1>showing all of my lists here...</h1>
+
+    {{!-- new list submission 
+    <form id="box" action="">
+        <input id="categoryName"/><button>Create</button>
+    </form> --}}
+
+    {{!-- fill with already existing lists --}}
+    <ul id="listView">
+        
+        {{#each allItems}}
+            <li>{{this.name}}</li> 
+        {{/each}}
+        <li>prefilled list item</li>        
+    </ul>
+
+<script>
+        // HANDLE NEW COMPONENT SUBMISSION
+
+        // (3) send post req to update components to the server
+        $('#box').submit(function() {
+            console.log('will add new category')
+            var name = $('#categoryName').val(); // grab category name
+            $('#categoryName').val('');
+
+            $.ajax({
+                type: "POST",
+                url: '/add/category',
+                data: {
+                    name: name
+                },
+                success: {
+                    function(data, status) {
+                        console.log('create category success! ', data)
+                    }
+                }
+            });
+            return false; // do not refresh page
+        });
+
+        // (4) listen for message from server when client makes component
+        socket.on('new component', function(comp) {
+            console.log('appending new comp html to page')
+            console.log('value = ' + comp);
+            $('#listView').append($('<li>').text(comp.name))
+        });
+</script>
+
+    
+</body>
+</html>

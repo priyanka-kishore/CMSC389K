@@ -1,0 +1,78 @@
+<h1>Create a new category, list, or item here</h1>
+
+<h2>Instructions:</h2>
+<h3>To create a new category: fill in (1).</h3>
+<h3>To create a new list in a category: fill in (1) and (2).</h3>
+<h3>To create a new item in a list in a category: fill in (1), (2), and (3).</h3>
+
+<form id="create">
+    <div>
+        (1) Create new category.
+        <input type="text" id="categoryName" name="categoryName" placeholder="Events">
+    </div>
+
+    <div>
+        (2) Create new list in category.
+        <input type="text" id="listName" name="listName" placeholder="Mother's Day">
+    </div>
+    
+    <div>
+        (3) Create new item in list in category.
+        <input type="text" id="listName" name="listName" placeholder="Buy flowers">
+    </div>
+
+    <button>Create</button>
+</form>
+
+<script>
+        // HANDLE NEW COMPONENT SUBMISSION
+
+        // (3) send post req to update components to the server
+        $('#create').submit(function() {
+            console.log('will add new category')
+            var cName = $('#categoryName').val(); // grab category name
+            var lName = $('#listName').val(); // grab list name
+            var iName = $('#itemName').val(); // grab item name
+
+            $('#categoryName').val('');
+            $('#listName').val('');
+            $('#itemName').val('');
+
+            // adding item
+            if (iName && lName && cName) {
+
+
+            // adding list
+            } else if (!iName && lName && cName) {
+
+
+            // adding category
+            } else if (!iName && !lName && cName) {
+                $.ajax({
+                    type: "POST",
+                    url: '/add/category',
+                    data: {
+                        name: cName
+                    },
+                    success: {
+                        function(data, status) {
+                            console.log('create category success! ', data)
+                        }
+                    }
+                });
+                return false; // do not refresh page
+            } else {
+                // not valid combination
+            }
+
+            
+            
+        });
+
+        // (4) listen for message from server when client makes component
+        socket.on('new component', function(comp) {
+            console.log('appending new comp html to page')
+            console.log('value = ' + comp);
+            $('#listView').append($('<li>').text(comp.name))
+        });
+</script>

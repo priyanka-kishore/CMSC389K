@@ -1,0 +1,19 @@
+<h2>{{name}}</h2>
+
+<h3>Average Ratings on Welp!</h3>
+<p>{{ratings}}</p>
+
+<h3>Average Price Point on Welp!</h3>
+<p>{{price}}</p>
+
+<h3>All Welp! Reviews:</h3>
+{{#each all}}
+<article>
+    <p>{{this}}</p>
+</article>
+{{else}}
+<article>
+    <h2>This restaurant has not been reviewed.</h2>
+    <a href="/writeReview">Be the first to review them!</a>
+</article>
+{{/each}}
