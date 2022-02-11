@@ -14,7 +14,7 @@
     "darkmode-js": "^1.5.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-handlebars": "^3.0.0",
+    "express-handlebars": "^5.3.1",
     "handlebars": "4.5.3",
     "mongoose": "^5.9.7",
     "socket.io": "^1.7.4",
